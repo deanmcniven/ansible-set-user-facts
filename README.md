@@ -5,5 +5,4 @@ Ansible role that sets facts concerning the current user to be used by other rol
 Facts:
 * Username
 * Full Name
-* Email Address
 * Home Directory
