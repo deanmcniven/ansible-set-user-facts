@@ -1,13 +1,11 @@
 ---
 - name: Get user entity record
   command: getent passwd {{ansible_env.USER}}
-  gather_facts: true
   become: false
   changed_when: false
   register: getent_output
 
 - name: Set user facts
-  gather_facts: true
   become: false
   changed_when: false
   set_fact:
