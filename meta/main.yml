@@ -1,1 +1,10 @@
 ---
+galaxy_info:
+  author: Dean McNiven
+  description: ansible-set-user-facts
+  license: MIT
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+dependencies: []
