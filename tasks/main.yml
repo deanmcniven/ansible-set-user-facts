@@ -1,9 +1,35 @@
 ---
-- name: Get user entity record
+- name: Get user entity record (Ubuntu)
   command: getent passwd {{ansible_env.USER}}
   become: false
   changed_when: false
   register: getent_output
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
+
+- name: Set Full Username (Ubuntu)
+  become: false
+  changed_when: false
+  set_fact:
+    local_user_fullname: "{{ getent_output.stdout.split(':')[4].split(',')[0] }}"
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
+
+- name: Get Full Username (MacOS)
+  command: id -F {{ansible_env.USER}}
+  become: false
+  changed_when: false
+  register: id_output
+  when:
+    - ansible_facts['distribution'] == "MacOSX"
+
+- name: Set Full Username (MacOS)
+  become: false
+  changed_when: false
+  set_fact:
+    local_user_fullname: "{{ id_output.stdout }}"
+  when:
+    - ansible_facts['distribution'] == "MacOSX"
 
 - name: Set user facts
   become: false
@@ -11,6 +37,5 @@
   set_fact:
     local_user_details_defined: true
     local_user_username: "{{ansible_env.USER}}"
-    local_user_fullname: "{{ getent_output.stdout.split(':')[4].split(',')[0] }}"
     local_user_homedir: "{{ansible_env.HOME}}"
 
