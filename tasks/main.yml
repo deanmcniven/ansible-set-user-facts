@@ -39,3 +39,8 @@
     local_user_username: "{{ansible_env.USER}}"
     local_user_homedir: "{{ansible_env.HOME}}"
 
+- name: Check Homebrew Installed
+  stat:
+    path: /opt/homebrew/bin/brew
+  register: homebrew_installed
+
